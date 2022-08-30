@@ -1,0 +1,7 @@
+{
+  "name": "loterroria",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
