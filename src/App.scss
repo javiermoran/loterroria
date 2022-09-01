@@ -1,0 +1,55 @@
+.color-picker {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .color-item {
+    border-radius: 6px;
+    width: 50px;
+    height: 50px;
+    border: 3px solid transparent;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding: 5px;
+    transition: all 0.5s;
+
+    &--selected {
+      border-color: var(--ion-color-light-contrast);
+      transform: scale(0.9);
+    }
+  }
+}
+
+.podium {}
+
+.empty-state {
+  color: var(--ion-color-medium);
+}
+
+.about-icons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+
+  img {
+    height: 25px;
+  }
+
+  #jm-icon {
+    height: 41px;
+    position: relative;
+    top: -7px;
+    margin-left: -12px;
+  }
+}
+
+.about-git {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+
+  a {
+    margin-left: 10px;
+  }
+}
