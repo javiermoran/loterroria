@@ -1,12 +1,9 @@
 import { IonText } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import Player from '../models/Player';
+import PlayersService from '../services/PlayersService';
 
-interface PodiumParams {
-  players: Player[];
-}
-
-const Podium = ({ players }: PodiumParams): JSX.Element => {
+const Podium = (): JSX.Element => {
   const [topPlayers, setTopPlayers] = useState<Player[]>([]);
 
   useEffect(() => {
@@ -14,6 +11,7 @@ const Podium = ({ players }: PodiumParams): JSX.Element => {
   }, []);
 
   const getTopPlayers = () => {
+    const players = PlayersService.getPlayers();
     const playersWithPoints = players.filter(
       (player: Player): boolean => player.points > 0
     );
@@ -40,7 +38,7 @@ const Podium = ({ players }: PodiumParams): JSX.Element => {
         <h3>Top 3</h3>
       </IonText>
       <div className='podium'>
-        {players?.length < 3 ? renderEmptyState() : renderPodium()}
+        {topPlayers?.length < 3 ? renderEmptyState() : renderPodium()}
       </div>
     </div>
   );

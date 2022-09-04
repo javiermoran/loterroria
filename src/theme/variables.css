@@ -76,6 +76,11 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-tint: #f5f6f9;
 }
 
+.ios body {
+  --ion-background-color: #f2f2f2;
+  --ion-item-background: #fff;
+}
+
 @media (prefers-color-scheme: dark) {
   /*
    * Dark Colors
@@ -179,7 +184,7 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-step-900: #e6e6e6;
     --ion-color-step-950: #f2f2f2;
 
-    --ion-item-background: #000000;
+    --ion-item-background: #1a1a1a;
 
     --ion-card-background: #1c1c1d;
   }

@@ -6,17 +6,25 @@ import {
   IonIcon,
   IonItem,
   IonList,
+  IonNote,
   IonPage,
   IonText,
   IonTitle,
   IonToggle,
   IonToolbar,
 } from '@ionic/react';
-import { information, moon } from 'ionicons/icons';
+import {
+  contrastOutline,
+  filmOutline,
+  informationCircleOutline,
+  timeOutline,
+} from 'ionicons/icons';
 import { useEffect, useState } from 'react';
+import * as HapticsService from '../services/HapticsService';
 
 const Settings = (): JSX.Element => {
   const [darkMode, setDarkMode] = useState(false);
+  const defaultTime = 30;
 
   useEffect(() => {
     const darkModeSetting = localStorage.getItem('darkMode');
@@ -31,6 +39,7 @@ const Settings = (): JSX.Element => {
     } else {
       document.body.classList.remove('dark');
     }
+    HapticsService.hapticsImpactLight();
   };
 
   return (
@@ -44,19 +53,54 @@ const Settings = (): JSX.Element => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonList className='ion-padding-top'>
-          <IonItem routerLink='about'>
-            <IonIcon slot='start' icon={information}></IonIcon>
-            <IonText className='ion-padding-left'>Acerca de</IonText>
+        <div className='ion-padding-horizontal ion-margin-top'>
+          <IonText color='medium'>
+            <small>JUEGOS</small>
+          </IonText>
+        </div>
+        <IonList>
+          <IonItem routerLink='characters'>
+            <IonIcon slot='start' icon={filmOutline}></IonIcon>
+            <IonText className='ion-padding-left'>
+              Personajes / Películas
+            </IonText>
           </IonItem>
           <IonItem>
-            <IonIcon slot='start' icon={moon}></IonIcon>
+            <IonIcon slot='start' icon={timeOutline}></IonIcon>
+            <IonText className='ion-padding-left'>
+              Tiempo default mimica
+            </IonText>
+            <IonNote slot='end'>{defaultTime}</IonNote>
+          </IonItem>
+        </IonList>
+
+        <div className='ion-padding-horizontal ion-margin-top'>
+          <IonText color='medium'>
+            <small>INTERFAZ</small>
+          </IonText>
+        </div>
+        <IonList>
+          <IonItem>
+            <IonIcon slot='start' icon={contrastOutline}></IonIcon>
             <IonText className='ion-padding-left'>Modo oscuro</IonText>
             <IonToggle
               checked={darkMode}
+              color='success'
               onIonChange={darkModeChange}
               slot='end'
             ></IonToggle>
+          </IonItem>
+        </IonList>
+
+        <div className='ion-padding-horizontal ion-margin-top'>
+          <IonText color='medium'>
+            <small>INFORMACIÓN</small>
+          </IonText>
+        </div>
+        <IonList>
+          <IonItem routerLink='about'>
+            <IonIcon slot='start' icon={informationCircleOutline}></IonIcon>
+            <IonText className='ion-padding-left'>Acerca de</IonText>
           </IonItem>
         </IonList>
       </IonContent>

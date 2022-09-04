@@ -41,7 +41,7 @@ const About = (): JSX.Element => {
             los juegos como loterroría y trivia.
           </IonText>
           <div className='ion-padding-vertical about-git'>
-            <IonIcon size='large' icon={logoOctocat} />
+            <IonIcon size='medium' icon={logoOctocat} />
             <a href='https://github.com/javiermoran/loterroria'>
               github.com/javiermoran/loterroria
             </a>

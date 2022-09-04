@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonContent,
   IonHeader,
   IonPage,
@@ -7,6 +8,7 @@ import {
 } from '@ionic/react';
 import Players from '../components/Players';
 import Podium from '../components/Podium';
+import * as HapticsService from '../services/HapticsService';
 
 const Rankings: React.FC = (): JSX.Element => {
   return (
@@ -22,7 +24,16 @@ const Rankings: React.FC = (): JSX.Element => {
             <IonTitle size='large'>Dashboard</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <Podium />
         <Players />
+        <IonButton
+          expand='block'
+          className='bottom-button-fixed'
+          id='new-player-btn'
+          onClick={HapticsService.hapticsImpactLight}
+        >
+          Nuevo jugador
+        </IonButton>
       </IonContent>
     </IonPage>
   );

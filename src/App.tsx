@@ -9,7 +9,7 @@ import {
   setupIonicReact,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { cog, diceOutline, podiumOutline } from 'ionicons/icons';
+import { cog, diceOutline, trophyOutline } from 'ionicons/icons';
 import './App.scss';
 
 /* Core CSS required for Ionic components to work properly */
@@ -30,6 +30,8 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+
+/* Pages */
 import Loterroria from './pages/Loterroria';
 import Trivia from './pages/Trivia';
 import Games from './pages/Games';
@@ -37,11 +39,21 @@ import Rankings from './pages/Rankings';
 import Mimic from './pages/Mimic';
 import Settings from './pages/Settings';
 import About from './pages/About';
+import Characters from './pages/Characters';
+
+import * as HapticsService from './services/HapticsService';
 
 setupIonicReact();
 
 const App: React.FC = (): JSX.Element => {
   const darkMode = localStorage.getItem('darkMode');
+  if (!darkMode) {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    if (prefersDark) {
+      localStorage.setItem('darkMode', 'true');
+    }
+  }
+
   if (darkMode === 'true') {
     document.body.classList.add('dark');
   }
@@ -57,19 +69,32 @@ const App: React.FC = (): JSX.Element => {
             <Route exact path='/loterroria' component={Loterroria} />
             <Route exact path='/trivia' component={Trivia} />
             <Route exact path='/mimic' component={Mimic} />
+            <Route exact path='/characters' component={Characters} />
             <Route exact path='/about' component={About} />
             <Route exact path='/'>
               <Redirect to='/rankings' />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot='bottom'>
-            <IonTabButton tab='tab1' href='/rankings'>
-              <IonIcon icon={podiumOutline} />
+            <IonTabButton
+              onClick={HapticsService.hapticsImpactMedium}
+              tab='tab1'
+              href='/rankings'
+            >
+              <IonIcon icon={trophyOutline} />
             </IonTabButton>
-            <IonTabButton tab='tab2' href='/games'>
+            <IonTabButton
+              onClick={HapticsService.hapticsImpactMedium}
+              tab='tab2'
+              href='/games'
+            >
               <IonIcon icon={diceOutline} />
             </IonTabButton>
-            <IonTabButton tab='tab3' href='/settings'>
+            <IonTabButton
+              onClick={HapticsService.hapticsImpactMedium}
+              tab='tab3'
+              href='/settings'
+            >
               <IonIcon icon={cog} />
             </IonTabButton>
           </IonTabBar>

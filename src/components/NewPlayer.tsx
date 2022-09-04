@@ -1,20 +1,19 @@
 import {
   IonButton,
   IonButtons,
-  IonCol,
   IonContent,
-  IonGrid,
   IonHeader,
   IonInput,
   IonLabel,
   IonModal,
-  IonRow,
-  IonTitle,
   IonToolbar,
 } from '@ionic/react';
+import * as HapticsService from '../services/HapticsService';
+
 import { useRef, useState } from 'react';
 import PlayersService from '../services/PlayersService';
 import ColorPicker from './ColorPicker';
+import AvatarPicker from './AvatarPicker';
 
 interface NewPlayerParams {
   onPlayerSaved: () => unknown;
@@ -22,13 +21,23 @@ interface NewPlayerParams {
 
 const NewPlayer = ({ onPlayerSaved }: NewPlayerParams): JSX.Element => {
   const modal = useRef<HTMLIonModalElement>(null);
-  const [name, setName] = useState('');
-  const [color, setColor] = useState('');
+  const [name, setName] = useState<string>('');
+  const [color, setColor] = useState<string>('');
+  const [avatar, setAvatar] = useState<number>();
 
   const savePlayer = (): void => {
-    PlayersService.addPlayer({ name, color, points: 0 });
+    PlayersService.addPlayer({ name, color, avatar, points: 0 });
     onPlayerSaved();
     modal?.current?.dismiss();
+    HapticsService.successNotification();
+    setName('');
+    setColor('');
+  };
+
+  const cancel = (): void => {
+    setName('');
+    setColor('');
+    modal.current?.dismiss();
   };
 
   return (
@@ -37,11 +46,8 @@ const NewPlayer = ({ onPlayerSaved }: NewPlayerParams): JSX.Element => {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot='start'>
-              <IonButton onClick={() => modal.current?.dismiss()}>
-                Cancelar
-              </IonButton>
+              <IonButton onClick={cancel}>Cancelar</IonButton>
             </IonButtons>
-            <IonTitle>Nuevo jugador</IonTitle>
             <IonButtons slot='end'>
               <IonButton
                 disabled={!color || !name}
@@ -68,9 +74,15 @@ const NewPlayer = ({ onPlayerSaved }: NewPlayerParams): JSX.Element => {
             <IonLabel>Color</IonLabel>
             <ColorPicker onColorChange={(color: string) => setColor(color)} />
           </div>
+          <div className='ion-padding-top ion-padding-bottom'>
+            <IonLabel>Avatar</IonLabel>
+            <AvatarPicker
+              onAvatarChange={(avatar: number) => setAvatar(avatar)}
+            />
+          </div>
           <div className='ion-padding-top'>
             <IonButton
-              disabled={!color || !name}
+              disabled={!color || !name || !avatar}
               onClick={savePlayer}
               expand='block'
             >
@@ -79,15 +91,6 @@ const NewPlayer = ({ onPlayerSaved }: NewPlayerParams): JSX.Element => {
           </div>
         </IonContent>
       </IonModal>
-      <IonGrid>
-        <IonRow>
-          <IonCol className='ion-padding-horizontal'>
-            <IonButton id='new-player-btn' expand='block'>
-              Nuevo jugador
-            </IonButton>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
     </div>
   );
 };
