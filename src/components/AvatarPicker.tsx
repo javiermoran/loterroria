@@ -1,5 +1,6 @@
 import { IonAvatar } from '@ionic/react';
 import { useState } from 'react';
+import AudioService, { AudioIds } from '../services/AudioService';
 
 interface AvatarPickerParams {
   onAvatarChange: (avatar: number) => unknown;
@@ -10,6 +11,7 @@ const AvatarPicker = ({ onAvatarChange }: AvatarPickerParams): JSX.Element => {
   const avatars = Array.from(Array(12).keys());
 
   const onSelectAvatar = (avatar: number): void => {
+    AudioService.playAudio(AudioIds.CLICK);
     setSelected(avatar);
     onAvatarChange(avatar);
   };

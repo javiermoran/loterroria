@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { colors } from '../constants';
+import AudioService, { AudioIds } from '../services/AudioService';
 
 interface ColorPickerParams {
   onColorChange: (color: string) => unknown;
@@ -16,6 +17,7 @@ const ColorPicker = ({ onColorChange }: ColorPickerParams): JSX.Element => {
           color === selected ? 'color-item--selected' : ''
         }`}
         onClick={(): void => {
+          AudioService.playAudio(AudioIds.CLICK);
           setSelected(color);
           onColorChange(color);
         }}

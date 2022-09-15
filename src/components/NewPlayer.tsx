@@ -3,6 +3,7 @@ import {
   IonButtons,
   IonContent,
   IonHeader,
+  IonIcon,
   IonInput,
   IonLabel,
   IonModal,
@@ -10,10 +11,13 @@ import {
 } from '@ionic/react';
 import * as HapticsService from '../services/HapticsService';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PlayersService from '../services/PlayersService';
 import ColorPicker from './ColorPicker';
 import AvatarPicker from './AvatarPicker';
+import { v4 as uuid } from 'uuid';
+import { addOutline } from 'ionicons/icons';
+import AudioService from '../services/AudioService';
 
 interface NewPlayerParams {
   onPlayerSaved: () => unknown;
@@ -24,9 +28,19 @@ const NewPlayer = ({ onPlayerSaved }: NewPlayerParams): JSX.Element => {
   const [name, setName] = useState<string>('');
   const [color, setColor] = useState<string>('');
   const [avatar, setAvatar] = useState<number>();
+  const [presentingElement, setPresentingElement] =
+    useState<HTMLElement | null>(null);
+  const page = useRef(null);
+
+  useEffect((): void => {
+    setPresentingElement(
+      document.getElementById('app-router-outlet') || page.current
+    );
+  }, []);
 
   const savePlayer = (): void => {
-    PlayersService.addPlayer({ name, color, avatar, points: 0 });
+    const id = uuid();
+    PlayersService.addPlayer({ id, name, color, avatar, points: 0 });
     onPlayerSaved();
     modal?.current?.dismiss();
     HapticsService.successNotification();
@@ -42,7 +56,21 @@ const NewPlayer = ({ onPlayerSaved }: NewPlayerParams): JSX.Element => {
 
   return (
     <div>
-      <IonModal ref={modal} trigger='new-player-btn'>
+      <IonButton
+        id='new-player-btn'
+        size='small'
+        className='ion-margin-right transparent-button'
+        onClick={(): void => {
+          AudioService.playAudio('click');
+        }}
+      >
+        <IonIcon icon={addOutline} />
+      </IonButton>
+      <IonModal
+        ref={modal}
+        trigger='new-player-btn'
+        presentingElement={presentingElement!}
+      >
         <IonHeader>
           <IonToolbar>
             <IonButtons slot='start'>
@@ -72,12 +100,20 @@ const NewPlayer = ({ onPlayerSaved }: NewPlayerParams): JSX.Element => {
           </div>
           <div className='ion-padding-top ion-padding-bottom'>
             <IonLabel>Color</IonLabel>
-            <ColorPicker onColorChange={(color: string) => setColor(color)} />
+            <ColorPicker
+              onColorChange={(color: string) => {
+                setColor(color);
+                HapticsService.hapticsImpactMedium();
+              }}
+            />
           </div>
           <div className='ion-padding-top ion-padding-bottom'>
             <IonLabel>Avatar</IonLabel>
             <AvatarPicker
-              onAvatarChange={(avatar: number) => setAvatar(avatar)}
+              onAvatarChange={(avatar: number) => {
+                setAvatar(avatar);
+                HapticsService.hapticsImpactMedium();
+              }}
             />
           </div>
           <div className='ion-padding-top'>

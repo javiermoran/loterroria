@@ -4,6 +4,7 @@ export enum QuestionType {
 }
 
 export default interface Question {
+  id: number | string;
   question: string;
   type: QuestionType;
   answer: string | number;
