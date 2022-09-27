@@ -24,7 +24,7 @@ const About = (): JSX.Element => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot='start'>
-            <IonBackButton defaultHref='settings' />
+            <IonBackButton text='' defaultHref='settings' />
           </IonButtons>
           <IonTitle>Acerca de</IonTitle>
         </IonToolbar>

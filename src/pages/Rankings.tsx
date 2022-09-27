@@ -1,14 +1,14 @@
 import {
-  IonButton,
   IonContent,
   IonHeader,
+  IonIcon,
   IonPage,
+  IonRouterLink,
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import Players from '../components/Players';
+import { pulseOutline } from 'ionicons/icons';
 import Podium from '../components/Podium';
-import * as HapticsService from '../services/HapticsService';
 
 const Rankings: React.FC = (): JSX.Element => {
   return (
@@ -16,24 +16,15 @@ const Rankings: React.FC = (): JSX.Element => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Rankings</IonTitle>
+          <IonRouterLink slot='end' routerLink='live-board'>
+            <IonIcon icon={pulseOutline} /> Live&nbsp;
+          </IonRouterLink>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse='condense'>
-          <IonToolbar>
-            <IonTitle size='large'>Dashboard</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <Podium />
-        <Players />
-        <IonButton
-          expand='block'
-          className='bottom-button-fixed'
-          id='new-player-btn'
-          onClick={HapticsService.hapticsImpactLight}
-        >
-          Nuevo jugador
-        </IonButton>
+        <div className='ion-padding-top'>
+          <Podium />
+        </div>
       </IonContent>
     </IonPage>
   );

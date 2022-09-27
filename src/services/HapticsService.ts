@@ -13,7 +13,7 @@ const hapticsImpactHeavy = async (): Promise<void> => {
 };
 
 const hapticsVibrate = async (): Promise<void> => {
-  await Haptics.vibrate();
+  await Haptics.vibrate({ duration: 500 });
 };
 
 const successNotification = async (): Promise<void> => {
@@ -27,3 +27,12 @@ export {
   hapticsImpactMedium,
   hapticsImpactHeavy,
 };
+
+const HapticsService = {
+  hapticsImpactLight,
+  hapticsVibrate,
+  successNotification,
+  hapticsImpactMedium,
+  hapticsImpactHeavy,
+};
+export default HapticsService;

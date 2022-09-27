@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+
 .color-picker {
   width: 100%;
   display: flex;
@@ -16,7 +18,7 @@
     opacity: 0.7;
 
     &--selected {
-      border-color: var(--ion-color-light-contrast);
+      border-color: var(--ion-color-primary);
       transform: scale(0.9);
       opacity: 1;
     }
@@ -46,7 +48,67 @@
   }
 }
 
-.podium {}
+.podium {
+  .podium-container {
+    position: relative;
+
+    #player1 {
+      color: #FFD700;
+      position: absolute;
+      left: 49%;
+    }
+
+    #player2 {
+      color: #C0C0C0;
+      position: absolute;
+      left: 20%;
+      top: 18%;
+    }
+
+    #player3 {
+      color: #A37E49;
+      position: absolute;
+      left: 75%;
+      top: 30%;
+    }
+
+    ion-icon {
+      width: 100vw;
+      height: 39vh;
+    }
+  }
+
+  .podium-medal {
+    width: 80%;
+    height: 80%;
+    border-radius: 100%;
+    position: relative;
+    left: 10%;
+    top: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+
+    &.first {
+      background: #FFD700;
+      border: 4px solid darken(#FFD700, 10%);
+      color: darken(#FFD700, 10%);
+    }
+
+    &.second {
+      background: #C0C0C0;
+      border: 4px solid darken(#C0C0C0, 10%);
+      color: darken(#C0C0C0, 10%);
+    }
+
+    &.third {
+      background: #A37E49;
+      border: 4px solid darken(#A37E49, 10%);
+      color: darken(#A37E49, 10%);
+    }
+  }
+}
 
 .empty-state {
   color: var(--ion-color-medium);
@@ -85,18 +147,18 @@
   }
 }
 
-.players {
-  .players-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-    .icon-large {
-      position: relative;
-      top: 0px;
-    }
+.players-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .icon-large {
+    position: relative;
+    top: 0px;
   }
 }
+
 
 .list-ios {
   margin-left: var(--ion-margin, 16px);
@@ -137,4 +199,79 @@
 .small-avatar {
   width: 30px;
   height: 30px;
+}
+
+.counter {
+  font-size: 8rem;
+  display: flex;
+  justify-content: center;
+}
+
+.transparent-button {
+  color: var(--ion-color-primary);
+  --background: transparent;
+  --background-activated: transparent;
+  --background-focused: transparent;
+  --background-hover: transparent;
+}
+
+hr {
+  background-color: var(--ion-color-step-100)
+}
+
+
+.blink {
+  animation: blinker 2.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.trivia-button {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  z-index: 2;
+  background-color: var(--background);
+}
+
+.trivia-container {
+  margin-top: 10px;
+  padding-bottom: 60px;
+}
+
+
+.pulse {
+  animation: pulse 2s ease-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  70% {
+    transform: scale(1);
+  }
+}
+
+ion-item-divider {
+  --background: transparent;
+}
+
+.flex-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .flex-full {
+    flex: 1;
+  }
 }

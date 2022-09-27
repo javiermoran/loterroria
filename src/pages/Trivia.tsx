@@ -15,6 +15,7 @@ import {
   IonToolbar,
 } from '@ionic/react';
 import { useEffect, useState } from 'react';
+import PlayerPointAssigner from '../components/PlayerPointAssigner';
 import Question, { QuestionType } from '../models/Question';
 import TriviaService from '../services/TriviaService';
 
@@ -30,7 +31,7 @@ const Trivia = (): JSX.Element => {
     if (question?.type === QuestionType?.MULTIPLE) {
       return question?.options?.map(
         (option: string, index: number): JSX.Element => (
-          <IonItem>
+          <IonItem key={index}>
             <IonNote
               slot='start'
               color={index === question?.answer ? 'success' : ''}
@@ -57,24 +58,32 @@ const Trivia = (): JSX.Element => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot='start'>
-            <IonBackButton defaultHref='games' />
+            <IonBackButton text='' defaultHref='games' />
           </IonButtons>
           <IonTitle>Trivia</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {questions.map(
-          (question: Question): JSX.Element => (
-            <IonList className='ion-padding-top ion-margin-top'>
-              <IonItemGroup>
-                <IonItemDivider>
-                  <IonText color='primary'>{question?.question}</IonText>
-                </IonItemDivider>
-                {renderAnswer(question)}
-              </IonItemGroup>
-            </IonList>
-          )
-        )}
+        <div className='trivia-container'>
+          {questions.map(
+            (question: Question): JSX.Element => (
+              <IonList
+                key={question?.id}
+                className='ion-padding-top ion-margin-top'
+              >
+                <IonItemGroup>
+                  <IonItemDivider>
+                    <IonText color='primary'>{question?.question}</IonText>
+                  </IonItemDivider>
+                  {renderAnswer(question)}
+                </IonItemGroup>
+              </IonList>
+            )
+          )}
+        </div>
+        <div className='ion-padding-start ion-padding-end trivia-button'>
+          <PlayerPointAssigner />
+        </div>
       </IonContent>
     </IonPage>
   );

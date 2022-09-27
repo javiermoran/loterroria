@@ -9,7 +9,7 @@ import {
   setupIonicReact,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { cog, diceOutline, trophyOutline } from 'ionicons/icons';
+import { cog, diceOutline, peopleOutline, trophyOutline } from 'ionicons/icons';
 import './App.scss';
 
 /* Core CSS required for Ionic components to work properly */
@@ -42,6 +42,11 @@ import About from './pages/About';
 import Characters from './pages/Characters';
 
 import * as HapticsService from './services/HapticsService';
+import TeamDetail from './pages/TeamDetail';
+import PlayersPage from './pages/PlayersPage';
+import AudioService, { AudioIds } from './services/AudioService';
+import LiveBoard from './pages/LiveBoard';
+import Movies from './pages/Movies';
 
 setupIonicReact();
 
@@ -62,37 +67,60 @@ const App: React.FC = (): JSX.Element => {
     <IonApp>
       <IonReactRouter>
         <IonTabs>
-          <IonRouterOutlet>
+          <IonRouterOutlet id='app-router-outlet'>
             <Route exact path='/rankings' component={Rankings} />
             <Route exact path='/games' component={Games} />
+            <Route exact path='/players' component={PlayersPage} />
             <Route exact path='/settings' component={Settings} />
             <Route exact path='/loterroria' component={Loterroria} />
             <Route exact path='/trivia' component={Trivia} />
             <Route exact path='/mimic' component={Mimic} />
             <Route exact path='/characters' component={Characters} />
+            <Route exact path='/movies' component={Movies} />
             <Route exact path='/about' component={About} />
+            <Route exact path='/teams/:id' component={TeamDetail} />
+            <Route exact path='/live-board' component={LiveBoard} />
             <Route exact path='/'>
               <Redirect to='/rankings' />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot='bottom'>
             <IonTabButton
-              onClick={HapticsService.hapticsImpactMedium}
+              onClick={() => {
+                AudioService.playAudio(AudioIds.CLICK);
+                HapticsService.hapticsImpactHeavy();
+              }}
               tab='tab1'
               href='/rankings'
             >
               <IonIcon icon={trophyOutline} />
             </IonTabButton>
             <IonTabButton
-              onClick={HapticsService.hapticsImpactMedium}
+              onClick={(): void => {
+                AudioService.playAudio(AudioIds.CLICK);
+                HapticsService.hapticsImpactHeavy();
+              }}
               tab='tab2'
+              href='/players'
+            >
+              <IonIcon icon={peopleOutline} />
+            </IonTabButton>
+            <IonTabButton
+              onClick={(): void => {
+                AudioService.playAudio(AudioIds.CLICK);
+                HapticsService.hapticsImpactHeavy();
+              }}
+              tab='tab3'
               href='/games'
             >
               <IonIcon icon={diceOutline} />
             </IonTabButton>
             <IonTabButton
-              onClick={HapticsService.hapticsImpactMedium}
-              tab='tab3'
+              onClick={(): void => {
+                AudioService.playAudio(AudioIds.CLICK);
+                HapticsService.hapticsImpactHeavy();
+              }}
+              tab='tab4'
               href='/settings'
             >
               <IonIcon icon={cog} />

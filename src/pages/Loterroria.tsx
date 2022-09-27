@@ -70,7 +70,7 @@ const Loterroria = (): JSX.Element => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot='start'>
-            <IonBackButton defaultHref='games' />
+            <IonBackButton text='' defaultHref='games' />
           </IonButtons>
           <IonTitle>Loterroria</IonTitle>
           <IonButtons slot='end'>

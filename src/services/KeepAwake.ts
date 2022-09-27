@@ -1,13 +1,25 @@
-import { KeepAwake } from '@capacitor-community/keep-awake';
+import { IsSupportedResult, KeepAwake } from '@capacitor-community/keep-awake';
 
-const keepAwake = async (): Promise<void> => {
-  return KeepAwake.keepAwake();
+const keepAwake = (): void => {
+  isSupported().then((result: IsSupportedResult): void => {
+    if (result.isSupported) {
+      KeepAwake.keepAwake();
+    }
+  });
 };
 
-const allowSleep = async (): Promise<void> => {
-  return KeepAwake.allowSleep();
+const allowSleep = (): void => {
+  isSupported().then((result: IsSupportedResult): void => {
+    if (result.isSupported) {
+      KeepAwake.allowSleep();
+    }
+  });
 };
 
-const KeepAwakeService = { keepAwake, allowSleep };
+const isSupported = (): Promise<IsSupportedResult> => {
+  return KeepAwake.isSupported();
+};
+
+const KeepAwakeService = { keepAwake, allowSleep, isSupported };
 
 export default KeepAwakeService;
